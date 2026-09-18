@@ -1,0 +1,72 @@
+[
+  {
+    "id": "C-1001",
+    "firstName": "Alice",
+    "lastName": "Morgan",
+    "email": "alice.morgan@example.com",
+    "phone": "+44 20 7946 0101",
+    "dateOfBirth": "1985-03-14",
+    "address": { "line1": "12 King Street", "line2": null, "city": "London", "postcode": "EC2V 8AA", "country": "GB" },
+    "status": "ACTIVE",
+    "locked": false,
+    "segment": "PREMIUM",
+    "accountManager": "j.smith",
+    "createdAt": "2019-06-01T09:30:00Z"
+  },
+  {
+    "id": "C-1002",
+    "firstName": "Bilal",
+    "lastName": "Khan",
+    "email": "bilal.khan@example.com",
+    "phone": "+44 161 496 0202",
+    "dateOfBirth": "1990-11-02",
+    "address": { "line1": "4 Deansgate", "line2": "Flat 7", "city": "Manchester", "postcode": "M3 2BA", "country": "GB" },
+    "status": "ACTIVE",
+    "locked": true,
+    "segment": "RETAIL",
+    "accountManager": null,
+    "createdAt": "2021-02-17T14:05:00Z"
+  },
+  {
+    "id": "C-1003",
+    "firstName": "Chloé",
+    "lastName": "Dubois",
+    "email": "chloe.dubois@example.com",
+    "phone": "+33 1 23 45 67 89",
+    "dateOfBirth": "1978-07-21",
+    "address": { "line1": "18 Rue de Rivoli", "line2": null, "city": "Paris", "postcode": "75004", "country": "FR" },
+    "status": "SUSPENDED",
+    "locked": true,
+    "segment": "BUSINESS",
+    "accountManager": "a.martin",
+    "createdAt": "2017-10-09T08:00:00Z"
+  },
+  {
+    "id": "C-1004",
+    "firstName": "Daniel",
+    "lastName": "Okafor",
+    "email": "daniel.okafor@example.com",
+    "phone": "+44 131 496 0404",
+    "dateOfBirth": "1995-01-30",
+    "address": { "line1": "22 Princes Street", "line2": null, "city": "Edinburgh", "postcode": "EH2 2AN", "country": "GB" },
+    "status": "CLOSED",
+    "locked": false,
+    "segment": "RETAIL",
+    "accountManager": null,
+    "createdAt": "2020-04-22T16:45:00Z"
+  },
+  {
+    "id": "C-1005",
+    "firstName": "Eva",
+    "lastName": "Novak",
+    "email": "eva.novak@example.com",
+    "phone": "+420 601 234 567",
+    "dateOfBirth": "1988-09-09",
+    "address": { "line1": "Karlova 5", "line2": null, "city": "Prague", "postcode": "110 00", "country": "CZ" },
+    "status": "ACTIVE",
+    "locked": false,
+    "segment": "PREMIUM",
+    "accountManager": "j.smith",
+    "createdAt": "2022-12-03T11:20:00Z"
+  }
+]
