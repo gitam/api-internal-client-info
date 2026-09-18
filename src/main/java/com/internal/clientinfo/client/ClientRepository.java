@@ -22,8 +22,7 @@ public class ClientRepository {
 
 	private final Map<String, Client> clients;
 
-	public ClientRepository(ObjectMapper objectMapper, @Value("${client-info.data}") Resource data)
-			throws IOException {
+	public ClientRepository(ObjectMapper objectMapper, @Value("${client-info.data}") Resource data) throws IOException {
 		try (InputStream in = data.getInputStream()) {
 			this.clients = Arrays.stream(objectMapper.readValue(in, Client[].class))
 				.collect(Collectors.toUnmodifiableMap(Client::id, Function.identity()));

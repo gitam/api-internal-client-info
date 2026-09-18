@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.web.client.RestClient;
 
 /**
- * Black-box API test against an already running instance (e.g. a sandbox).
- * The target is set with {@code -Dapi.baseUrl=...} and defaults to {@code http://localhost:8080}.
+ * Black-box API test against an already running instance (e.g. a sandbox). The target is
+ * set with {@code -Dapi.baseUrl=...} and defaults to {@code http://localhost:8080}.
  */
 class ClientApiIT {
 

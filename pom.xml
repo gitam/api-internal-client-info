@@ -70,6 +70,21 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<!-- Lint: ./mvnw spring-javaformat:validate pmd:check (fix formatting with spring-javaformat:apply) -->
+			<plugin>
+				<groupId>io.spring.javaformat</groupId>
+				<artifactId>spring-javaformat-maven-plugin</artifactId>
+				<version>0.0.48</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.28.0</version>
+				<configuration>
+					<includeTests>true</includeTests>
+					<printFailingErrors>true</printFailingErrors>
+				</configuration>
+			</plugin>
 			<!-- API tests (*IT) against a running instance:
 			     ./mvnw verify -DskipITs=false -Dapi.baseUrl=... -->
 			<plugin>
