@@ -26,8 +26,7 @@ public class ClientController {
 
 	@GetMapping
 	public List<Client> search(@RequestParam(required = false) String email,
-			@RequestParam(required = false) ClientStatus status,
-			@RequestParam(required = false) String segment) {
+			@RequestParam(required = false) ClientStatus status, @RequestParam(required = false) String segment) {
 		Stream<Client> result = repository.findAll().stream();
 		if (email != null) {
 			result = result.filter(c -> c.email().equalsIgnoreCase(email));

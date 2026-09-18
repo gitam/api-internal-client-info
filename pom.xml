@@ -28,6 +28,10 @@
 	</scm>
 	<properties>
 		<java.version>21</java.version>
+		<!-- Target of the API tests (*IT), override with -Dapi.baseUrl=... -->
+		<api.baseUrl>http://localhost:8080</api.baseUrl>
+		<!-- API tests need a running instance; enable with -DskipITs=false -->
+		<skipITs>true</skipITs>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -65,6 +69,32 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<!-- Lint: ./mvnw spring-javaformat:validate pmd:check (fix formatting with spring-javaformat:apply) -->
+			<plugin>
+				<groupId>io.spring.javaformat</groupId>
+				<artifactId>spring-javaformat-maven-plugin</artifactId>
+				<version>0.0.48</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.28.0</version>
+				<configuration>
+					<includeTests>true</includeTests>
+					<printFailingErrors>true</printFailingErrors>
+				</configuration>
+			</plugin>
+			<!-- API tests (*IT) against a running instance:
+			     ./mvnw verify -DskipITs=false -Dapi.baseUrl=... -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<configuration>
+					<systemPropertyVariables>
+						<api.baseUrl>${api.baseUrl}</api.baseUrl>
+					</systemPropertyVariables>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

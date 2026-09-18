@@ -1,0 +1,86 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      - name: Check formatting (fix with ./mvnw spring-javaformat:apply)
+        run: ./mvnw -B spring-javaformat:validate
+
+      - name: Static analysis (PMD)
+        run: ./mvnw -B pmd:check
+
+  build:
+    name: Build and unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      - name: Build and run unit tests
+        run: ./mvnw -B verify
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app-jar
+          path: target/client-info-*.jar
+          if-no-files-found: error
+
+  api-test:
+    name: API tests against sandbox
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      # Set the SANDBOX_URL repository variable to test a deployed sandbox instead
+      # of starting the jar built above inside this job.
+      API_BASE_URL: ${{ vars.SANDBOX_URL || 'http://localhost:8080' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      - uses: actions/download-artifact@v4
+        if: ${{ !vars.SANDBOX_URL }}
+        with:
+          name: app-jar
+          path: sandbox
+
+      - name: Start sandbox
+        if: ${{ !vars.SANDBOX_URL }}
+        run: |
+          nohup java -jar sandbox/client-info-*.jar > sandbox/app.log 2>&1 &
+          for i in $(seq 1 60); do
+            curl -sf "$API_BASE_URL/actuator/health" && exit 0
+            sleep 1
+          done
+          echo "Sandbox did not become healthy"; cat sandbox/app.log; exit 1
+
+      - name: Run API tests
+        run: ./mvnw -B test-compile failsafe:integration-test failsafe:verify -DskipITs=false -Dapi.baseUrl="$API_BASE_URL"
+
+      - name: Sandbox log
+        if: ${{ failure() && !vars.SANDBOX_URL }}
+        run: cat sandbox/app.log
