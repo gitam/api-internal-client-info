@@ -46,7 +46,7 @@ jobs:
           if-no-files-found: error
 
   api-test:
-    name: API tests against sandbox
+    name: API and contract tests against sandbox
     needs: build
     runs-on: ubuntu-latest
     env:
@@ -78,7 +78,7 @@ jobs:
           done
           echo "Sandbox did not become healthy"; cat sandbox/app.log; exit 1
 
-      - name: Run API tests
+      - name: Run API and Pact provider tests
         run: ./mvnw -B test-compile failsafe:integration-test failsafe:verify -DskipITs=false -Dapi.baseUrl="$API_BASE_URL"
 
       - name: Sandbox log

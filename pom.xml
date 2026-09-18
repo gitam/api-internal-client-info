@@ -32,6 +32,7 @@
 		<api.baseUrl>http://localhost:8080</api.baseUrl>
 		<!-- API tests need a running instance; enable with -DskipITs=false -->
 		<skipITs>true</skipITs>
+		<pact.version>4.7.5</pact.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -60,6 +61,18 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>au.com.dius.pact.consumer</groupId>
+			<artifactId>junit5</artifactId>
+			<version>${pact.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>au.com.dius.pact.provider</groupId>
+			<artifactId>junit5</artifactId>
+			<version>${pact.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

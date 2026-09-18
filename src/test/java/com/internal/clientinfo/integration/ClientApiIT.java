@@ -1,4 +1,4 @@
-package com.internal.clientinfo.client;
+package com.internal.clientinfo.integration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.client.RestClient;
+
+import com.internal.clientinfo.client.Client;
 
 /**
  * Black-box API test against an already running instance (e.g. a sandbox). The target is
