@@ -6,25 +6,19 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.web.client.RestClient;
 
 /**
- * Starts the app on a random port and calls the API over real HTTP.
+ * Black-box API test against an already running instance (e.g. a sandbox).
+ * The target is set with {@code -Dapi.baseUrl=...} and defaults to {@code http://localhost:8080}.
  */
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-class ClientApiIntegrationTests {
-
-	@LocalServerPort
-	private int port;
+class ClientApiIT {
 
 	private RestClient client;
 
 	@BeforeEach
 	void setUp() {
-		client = RestClient.create("http://localhost:" + port);
+		client = RestClient.create(System.getProperty("api.baseUrl", "http://localhost:8080"));
 	}
 
 	@Test
